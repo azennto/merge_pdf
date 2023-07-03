@@ -3,3 +3,4 @@ scripts/build/
 scripts/dist/
 scripts/merge_pdf.spec/
 poetry.lock
+scripts/merge_pdf.spec
