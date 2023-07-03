@@ -1,5 +1,5 @@
 from pikepdf import Pdf
-from pathlib import Path
+from pathlib import WindowsPath
 from types import GenericAlias
 from tqdm import tqdm
 import random
@@ -73,7 +73,7 @@ def order_select(input_path:list[str]) -> list[int]:
 			os.system('cls')
 			return order
 
-def merge(order:dict[int, str], output_path:Path):
+def merge(order:dict[int, str], output_path:WindowsPath):
 	dst = Pdf.new() # 空のpdf
 
 	for i in tqdm(range(len(order))):
@@ -97,24 +97,26 @@ if __name__ == "__main__":
 	except IndexError:
 		while True:
 			pdf_dir_path = input("入力のディレクトリのpathを入力してください: ")
-			pdf_dir_path = Path(pdf_dir_path)
+			pdf_dir_path = WindowsPath(pdf_dir_path)
 			if pdf_dir_path.is_dir():
 				break
 	pdf_file_paths = list(pdf_dir_path.glob("**/*.pdf")) # input_pathからpdfファイルを探す
+	if pdf_file_paths is None:
+		print("pdfが見つかりませんでした...")
 
 	try:
 		output_dir_path = sys.argv[2]
 	except IndexError:
 		while True:
 			output_dir_path = input("出力のディレクトリのpathを入力してください(空白でカレントディレクトリ): ")
-			output_dir_path = Path(output_dir_path)
+			output_dir_path = WindowsPath(output_dir_path)
 			if output_dir_path == None:
-				output_dir_path = Path.cwd()
+				output_dir_path = WindowsPath.cwd()
 			if output_dir_path.is_dir():
 				break
 
 	dir_name = pdf_dir_path.name
-	output_dir_path = Path(output_dir_path) / Path(f"{dir_name}_merged.pdf")
+	output_dir_path = WindowsPath(output_dir_path) / WindowsPath(f"{dir_name}_merged.pdf")
 
 	order = []
 	while True:
@@ -123,7 +125,8 @@ if __name__ == "__main__":
 			order = order_select(pdf_file_paths)
 			break
 		elif select_flag == 'n':
-			order = random.shuffle(list(range(len(pdf_file_paths))))
+			order = list(range(len(pdf_file_paths)))
+			random.shuffle(order)
 			break
 	order_dict = {ord:path for path, ord in zip(pdf_file_paths, order)}
 
