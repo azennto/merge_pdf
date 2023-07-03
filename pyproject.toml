@@ -10,6 +10,7 @@ packages = [{include = "merge_pdf"}]
 python = ">=3.9,<3.12"
 #pypdf = "^3.12.0"
 pikepdf = "^7.2.0"
+keyboard = "^0.13.5"
 
 [tool.poetry.group.dev.dependencies]
 pyinstaller = "^5.13.0"
