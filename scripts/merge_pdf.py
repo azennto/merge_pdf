@@ -1,6 +1,7 @@
 from pikepdf import Pdf
 from pathlib import Path
 from types import GenericAlias
+from tqdm import tqdm
 import random
 import sys
 import os
@@ -35,7 +36,6 @@ def order_select_screen_input(input_path:list[str], cursor:int, order:list[int])
 	while True:
 		order_select_screen_list(input_path, cursor, order, cursor_display=False)
 		print('-'*10)
-		print(order)
 		order_num = input(f"何番目にしますか？[1~{len(input_path)}] :")
 		if is_num(order_num):
 			order_num = int(order_num)
@@ -64,19 +64,19 @@ def order_select(input_path:list[str]) -> list[int]:
 			order_set.remove(-1)
 			not_select_num = set(range(len(input_path))) - order_set
 			not_select_num = list(not_select_num)
-			print(not_select_num)
 			random.shuffle(not_select_num)
 			for i, v in enumerate(order):
 				if v == -1:
 					order[i] = not_select_num.pop()
+			
 
-			print(order)
+			os.system('cls')
 			return order
 
 def merge(order:dict[int, str], output_path:Path):
 	dst = Pdf.new() # 空のpdf
 
-	for i in range(len(order)):
+	for i in tqdm(range(len(order))):
 		pdf_file = order[i]
 		try:
 			with Pdf.open(pdf_file) as reader:
@@ -126,6 +126,5 @@ if __name__ == "__main__":
 			order = random.shuffle(list(range(len(pdf_file_paths))))
 			break
 	order_dict = {ord:path for path, ord in zip(pdf_file_paths, order)}
-	print(order_dict)
 
 	merge(order_dict, output_dir_path)
