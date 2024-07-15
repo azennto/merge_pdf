@@ -10,6 +10,8 @@
 #   universal: false
 
 -e file:.
+altgraph==0.17.4
+    # via pyinstaller
 colorama==0.4.6
     # via tqdm
 deprecated==1.2.14
@@ -20,11 +22,24 @@ lxml==5.2.2
     # via pikepdf
 packaging==24.1
     # via pikepdf
+    # via pyinstaller
+    # via pyinstaller-hooks-contrib
+pefile==2023.2.7
+    # via pyinstaller
 pikepdf==9.0.0
     # via merge-pdf
 pillow==10.4.0
     # via pikepdf
+pyinstaller==6.9.0
+    # via merge-pdf
+pyinstaller-hooks-contrib==2024.7
+    # via pyinstaller
+pywin32-ctypes==0.2.2
+    # via pyinstaller
 tqdm==4.66.4
     # via merge-pdf
 wrapt==1.16.0
     # via deprecated
+setuptools==70.3.0
+    # via pyinstaller
+    # via pyinstaller-hooks-contrib

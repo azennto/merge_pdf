@@ -9,6 +9,7 @@ dependencies = [
     "pikepdf>=9.0.0",
     "keyboard>=0.13.5",
     "tqdm>=4.66.4",
+    "pyinstaller>=6.9.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.11"
