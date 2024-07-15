@@ -3,3 +3,12 @@ build/
 dist/
 merge_pdf.spec
 poetry.lock
+target
+.venv
+.env
+/x
+site
+__pycache__
+.idea
+token.txt
+dist
