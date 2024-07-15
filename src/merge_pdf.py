@@ -92,7 +92,7 @@ def merge(order: dict[int, str], output_path: WindowsPath):
 				dst.pages.extend(reader.pages)
 				# 奇数ページの場合、白紙ページを追加
 				if len(reader.pages) % 2 == 1:
-					dst.add_blank_page()
+					dst.add_blank_page(page_size=(594.35, 841.99))
 		except AttributeError as e:
 			print("pdfの作成に失敗しました")
 			print(e)
